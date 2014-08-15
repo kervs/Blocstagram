@@ -19,6 +19,17 @@
 		3B7E2C36199DEC8C008FB631 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7E2C1E199DEC8C008FB631 /* UIKit.framework */; };
 		3B7E2C3E199DEC8C008FB631 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C3C199DEC8C008FB631 /* InfoPlist.strings */; };
 		3B7E2C40199DEC8C008FB631 /* BlocstagramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E2C3F199DEC8C008FB631 /* BlocstagramTests.m */; };
+		3B7E2C54199DF171008FB631 /* 1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C4A199DF171008FB631 /* 1.JPG */; };
+		3B7E2C55199DF171008FB631 /* 2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C4B199DF171008FB631 /* 2.JPG */; };
+		3B7E2C56199DF171008FB631 /* 3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C4C199DF171008FB631 /* 3.JPG */; };
+		3B7E2C57199DF171008FB631 /* 4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C4D199DF171008FB631 /* 4.JPG */; };
+		3B7E2C58199DF171008FB631 /* 5.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C4E199DF171008FB631 /* 5.JPG */; };
+		3B7E2C59199DF171008FB631 /* 6.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C4F199DF171008FB631 /* 6.JPG */; };
+		3B7E2C5A199DF171008FB631 /* 7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C50199DF171008FB631 /* 7.JPG */; };
+		3B7E2C5B199DF171008FB631 /* 8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C51199DF171008FB631 /* 8.jpg */; };
+		3B7E2C5C199DF171008FB631 /* 9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C52199DF171008FB631 /* 9.jpg */; };
+		3B7E2C5D199DF171008FB631 /* 10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C53199DF171008FB631 /* 10.JPG */; };
+		3B7E2C60199E6889008FB631 /* EWEImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E2C5F199E6889008FB631 /* EWEImagesTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +59,18 @@
 		3B7E2C3B199DEC8C008FB631 /* BlocstagramTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocstagramTests-Info.plist"; sourceTree = "<group>"; };
 		3B7E2C3D199DEC8C008FB631 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B7E2C3F199DEC8C008FB631 /* BlocstagramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlocstagramTests.m; sourceTree = "<group>"; };
+		3B7E2C4A199DF171008FB631 /* 1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.JPG; sourceTree = "<group>"; };
+		3B7E2C4B199DF171008FB631 /* 2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.JPG; sourceTree = "<group>"; };
+		3B7E2C4C199DF171008FB631 /* 3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.JPG; sourceTree = "<group>"; };
+		3B7E2C4D199DF171008FB631 /* 4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.JPG; sourceTree = "<group>"; };
+		3B7E2C4E199DF171008FB631 /* 5.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.JPG; sourceTree = "<group>"; };
+		3B7E2C4F199DF171008FB631 /* 6.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.JPG; sourceTree = "<group>"; };
+		3B7E2C50199DF171008FB631 /* 7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.JPG; sourceTree = "<group>"; };
+		3B7E2C51199DF171008FB631 /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.jpg; sourceTree = "<group>"; };
+		3B7E2C52199DF171008FB631 /* 9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.jpg; sourceTree = "<group>"; };
+		3B7E2C53199DF171008FB631 /* 10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.JPG; sourceTree = "<group>"; };
+		3B7E2C5E199E6889008FB631 /* EWEImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEImagesTableViewController.h; sourceTree = "<group>"; };
+		3B7E2C5F199E6889008FB631 /* EWEImagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEImagesTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +130,11 @@
 		3B7E2C20199DEC8C008FB631 /* Blocstagram */ = {
 			isa = PBXGroup;
 			children = (
+				3B7E2C49199DF0EF008FB631 /* Images */,
 				3B7E2C29199DEC8C008FB631 /* EWEAppDelegate.h */,
 				3B7E2C2A199DEC8C008FB631 /* EWEAppDelegate.m */,
+				3B7E2C5E199E6889008FB631 /* EWEImagesTableViewController.h */,
+				3B7E2C5F199E6889008FB631 /* EWEImagesTableViewController.m */,
 				3B7E2C2C199DEC8C008FB631 /* Images.xcassets */,
 				3B7E2C21199DEC8C008FB631 /* Supporting Files */,
 			);
@@ -142,6 +168,23 @@
 				3B7E2C3C199DEC8C008FB631 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3B7E2C49199DF0EF008FB631 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				3B7E2C4A199DF171008FB631 /* 1.JPG */,
+				3B7E2C4B199DF171008FB631 /* 2.JPG */,
+				3B7E2C4C199DF171008FB631 /* 3.JPG */,
+				3B7E2C4D199DF171008FB631 /* 4.JPG */,
+				3B7E2C4E199DF171008FB631 /* 5.JPG */,
+				3B7E2C4F199DF171008FB631 /* 6.JPG */,
+				3B7E2C50199DF171008FB631 /* 7.JPG */,
+				3B7E2C51199DF171008FB631 /* 8.jpg */,
+				3B7E2C52199DF171008FB631 /* 9.jpg */,
+				3B7E2C53199DF171008FB631 /* 10.JPG */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,7 +263,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B7E2C5C199DF171008FB631 /* 9.jpg in Resources */,
+				3B7E2C5B199DF171008FB631 /* 8.jpg in Resources */,
+				3B7E2C58199DF171008FB631 /* 5.JPG in Resources */,
+				3B7E2C57199DF171008FB631 /* 4.JPG in Resources */,
+				3B7E2C59199DF171008FB631 /* 6.JPG in Resources */,
+				3B7E2C5A199DF171008FB631 /* 7.JPG in Resources */,
+				3B7E2C5D199DF171008FB631 /* 10.JPG in Resources */,
+				3B7E2C54199DF171008FB631 /* 1.JPG in Resources */,
 				3B7E2C25199DEC8C008FB631 /* InfoPlist.strings in Resources */,
+				3B7E2C55199DF171008FB631 /* 2.JPG in Resources */,
+				3B7E2C56199DF171008FB631 /* 3.JPG in Resources */,
 				3B7E2C2D199DEC8C008FB631 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B7E2C60199E6889008FB631 /* EWEImagesTableViewController.m in Sources */,
 				3B7E2C2B199DEC8C008FB631 /* EWEAppDelegate.m in Sources */,
 				3B7E2C27199DEC8C008FB631 /* main.m in Sources */,
 			);
