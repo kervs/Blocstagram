@@ -11,6 +11,7 @@
 		3B287D5919A1208900739DBE /* EWEMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D5819A1208900739DBE /* EWEMedia.m */; };
 		3B287D5C19A1215900739DBE /* EWEComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D5B19A1215900739DBE /* EWEComment.m */; };
 		3B287D5F19A1223100739DBE /* EWEDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D5E19A1223100739DBE /* EWEDatasource.m */; };
+		3B287D6219A1480100739DBE /* EWEMediaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D6119A1480100739DBE /* EWEMediaTableViewCell.m */; };
 		3B7E2C1B199DEC8C008FB631 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7E2C1A199DEC8C008FB631 /* Foundation.framework */; };
 		3B7E2C1D199DEC8C008FB631 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7E2C1C199DEC8C008FB631 /* CoreGraphics.framework */; };
 		3B7E2C1F199DEC8C008FB631 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7E2C1E199DEC8C008FB631 /* UIKit.framework */; };
@@ -55,6 +56,8 @@
 		3B287D5B19A1215900739DBE /* EWEComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEComment.m; sourceTree = "<group>"; };
 		3B287D5D19A1223100739DBE /* EWEDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEDatasource.h; sourceTree = "<group>"; };
 		3B287D5E19A1223100739DBE /* EWEDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEDatasource.m; sourceTree = "<group>"; };
+		3B287D6019A1480100739DBE /* EWEMediaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEMediaTableViewCell.h; sourceTree = "<group>"; };
+		3B287D6119A1480100739DBE /* EWEMediaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEMediaTableViewCell.m; sourceTree = "<group>"; };
 		3B7E2C17199DEC8C008FB631 /* Blocstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blocstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7E2C1A199DEC8C008FB631 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3B7E2C1C199DEC8C008FB631 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -155,6 +158,8 @@
 				3B287D5B19A1215900739DBE /* EWEComment.m */,
 				3B287D5D19A1223100739DBE /* EWEDatasource.h */,
 				3B287D5E19A1223100739DBE /* EWEDatasource.m */,
+				3B287D6019A1480100739DBE /* EWEMediaTableViewCell.h */,
+				3B287D6119A1480100739DBE /* EWEMediaTableViewCell.m */,
 				3B7E2C2C199DEC8C008FB631 /* Images.xcassets */,
 				3B7E2C21199DEC8C008FB631 /* Supporting Files */,
 			);
@@ -319,6 +324,7 @@
 				3B287D5919A1208900739DBE /* EWEMedia.m in Sources */,
 				3B7E2C27199DEC8C008FB631 /* main.m in Sources */,
 				3B287D5C19A1215900739DBE /* EWEComment.m in Sources */,
+				3B287D6219A1480100739DBE /* EWEMediaTableViewCell.m in Sources */,
 				3B287D5F19A1223100739DBE /* EWEDatasource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

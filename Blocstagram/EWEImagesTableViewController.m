@@ -11,6 +11,7 @@
 #import "EWEMedia.h"
 #import "EWEComment.h"
 #import "EWEDatasource.h"
+#import "EWEMediaTableViewCell.h"
 
 @interface EWEImagesTableViewController ()
 
@@ -44,7 +45,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"imageCell"];
+    [self.tableView registerClass:[EWEMediaTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,34 +66,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imageCell" forIndexPath:indexPath];
+
     
     // Configure the cell...
-    static NSInteger imageViewTag = 1234;
-    UIImageView *imageView = (UIImageView*)[cell.contentView viewWithTag:imageViewTag];
-   
-    if (!imageView) {
-        // This is a new cell, it doesn't have an image view yet
-        imageView = [[UIImageView alloc] init];
-        imageView.contentMode = UIViewContentModeScaleToFill;
-        
-        imageView.frame = cell.contentView.bounds;
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        
-        imageView.tag = imageViewTag;
-        [cell.contentView addSubview:imageView];
-    }
-    
-    EWEMedia *item = self.item[indexPath.row];
-    imageView.image = item.image;
-    
+    EWEMediaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mediaCell" forIndexPath:indexPath];
+    cell.mediaItem = self.item[indexPath.row];
     return cell;
+    
+
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     EWEMedia *item = self.item[indexPath.row];
-    UIImage *image = item.image;
-    return image.size.height / image.size.width * CGRectGetWidth(self.view.frame);
+    return [EWEMediaTableViewCell heightForMediaItem:item width:CGRectGetWidth(self.view.frame)];
 }
 
 // Override to support conditional editing of the table view.
