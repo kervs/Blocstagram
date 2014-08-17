@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+@class EWEMedia;
 
 @interface EWEDatasource : NSObject
 
 +(instancetype) sharedInstance;
-@property (nonatomic, strong, readonly) NSMutableArray *mediaItems;
+@property (nonatomic, strong, readonly) NSArray *mediaItems;
+
+- (void) deleteMediaItem:(EWEMedia *)item;
 
 @end
