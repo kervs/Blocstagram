@@ -7,21 +7,29 @@
 //
 
 #import "EWEImagesTableViewController.h"
+#import "EWEUser.h"
+#import "EWEMedia.h"
+#import "EWEComment.h"
+#import "EWEDatasource.h"
 
 @interface EWEImagesTableViewController ()
-@property (nonatomic, strong) NSMutableArray *images;
+
+@property(nonatomic, strong) NSMutableArray *item;
+
 
 @end
 
 @implementation EWEImagesTableViewController
+
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        self.images = [NSMutableArray array];
-    }
+        self.item = [EWEDatasource sharedInstance].mediaItems;
+           }
     return self;
 }
 
@@ -34,13 +42,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    for (int i = 1; i <= 10; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"%d.jpg", i];
-        UIImage *image = [UIImage imageNamed:imageName];
-        if (image) {
-            [self.images addObject:image];
-        }
-    }
+    
+    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"imageCell"];
 }
 
@@ -56,7 +59,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return self.images.count;
+    return [self item].count;
 }
 
 
@@ -80,15 +83,16 @@
         [cell.contentView addSubview:imageView];
     }
     
-    UIImage *image = self.images[indexPath.row];
-    imageView.image = image;
+    EWEMedia *item = self.item[indexPath.row];
+    imageView.image = item.image;
     
     return cell;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIImage *image = self.images[indexPath.row];
-    return (CGRectGetWidth(self.view.frame) / image.size.width) * image.size.height;
+    EWEMedia *item = self.item[indexPath.row];
+    UIImage *image = item.image;
+    return image.size.height / image.size.width * CGRectGetWidth(self.view.frame);
 }
 
 // Override to support conditional editing of the table view.
@@ -101,13 +105,14 @@
 
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-
-{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+    
         
-            [self.images removeObjectAtIndex:indexPath.row];
+        [self.item removeObject:self.item[indexPath.row]];
         }
         
         [tableView reloadData];
