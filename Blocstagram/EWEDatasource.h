@@ -9,11 +9,16 @@
 #import <Foundation/Foundation.h>
 @class EWEMedia;
 
+typedef void (^EWENewItemCompletionBlock)(NSError *error);
+
 @interface EWEDatasource : NSObject
 
 +(instancetype) sharedInstance;
 @property (nonatomic, strong, readonly) NSArray *mediaItems;
 
 - (void) deleteMediaItem:(EWEMedia *)item;
+
+- (void) requestNewItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
+-(void) requestOldItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
 
 @end
