@@ -18,6 +18,9 @@ typedef void (^EWENewItemCompletionBlock)(NSError *error);
 
 - (void) deleteMediaItem:(EWEMedia *)item;
 
++ (NSString *) instagramClientID;
+@property (nonatomic, strong, readonly) NSString *accessToken;
+
 - (void) requestNewItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
 -(void) requestOldItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
 

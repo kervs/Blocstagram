@@ -8,6 +8,8 @@
 
 #import "EWEAppDelegate.h"
 #import "EWEImagesTableViewController.h"
+#import "EWELoginViewController.h"
+#import "EWEDatasource.h"
 
 @implementation EWEAppDelegate
 
@@ -15,7 +17,19 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[EWEImagesTableViewController alloc] init]];
+    
+    [EWEDatasource sharedInstance]; // create the data source (so it can receive the access token notification)
+    
+    UINavigationController *navVC = [[UINavigationController alloc] init];
+    EWELoginViewController *loginVC = [[EWELoginViewController alloc] init];
+    [navVC setViewControllers:@[loginVC] animated:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:EWELoginViewControllerDidGetAccessTokenNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        EWEImagesTableViewController *imagesVC = [[EWEImagesTableViewController alloc] init];
+        [navVC setViewControllers:@[imagesVC] animated:YES];
+    }];
+    
+    self.window.rootViewController = navVC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     

@@ -52,9 +52,8 @@
     [self.tableView registerClass:[EWEMediaTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
 }
 
-- (void) dealloc
-{
-    [[EWEDatasource sharedInstance] removeObserver:self forKeyPath:@"mediaItems"];
+- (void) dealloc {
+   [[EWEDatasource sharedInstance] removeObserver:self forKeyPath:@"mediaItems"];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -174,7 +173,7 @@
         [[EWEDatasource sharedInstance] deleteMediaItem:item];
         }
         
-        [tableView reloadData];
+    
     
 }
 
