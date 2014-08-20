@@ -71,7 +71,8 @@ NSMutableArray *_mediaItems;
       if (self.isLoadingOlderItems == NO && self.thereAreNoMoreOlderMessages == NO) {
         self.isLoadingOlderItems = YES;
         NSString *maxID = [[self.mediaItems lastObject] idNumber];
-        NSDictionary *parameters = @{@"max_id": maxID};
+        NSMutableDictionary *parameters;
+          [parameters setObject: maxID forKey:@"max_id"];
      
           [self populateDataWithParameters:parameters completionHandler:^(NSError *error) {
               self.isLoadingOlderItems = NO;
