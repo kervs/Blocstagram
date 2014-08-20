@@ -11,5 +11,17 @@
 
 @implementation EWEComment
 
+- (instancetype) initWithDictionary:(NSDictionary *)commentDictionary {
+    self = [super init];
+    
+    if (self) {
+        self.idNumber = commentDictionary[@"id"];
+        self.text = commentDictionary[@"text"];
+        self.from = [[EWEUser alloc] initWithDictionary:commentDictionary[@"from"]];
+    }
+    
+    return self;
+}
+
 
 @end

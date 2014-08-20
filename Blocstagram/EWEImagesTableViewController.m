@@ -161,6 +161,15 @@
     return YES;
 }
 
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    EWEMedia *item = [EWEDatasource sharedInstance].mediaItems[indexPath.row];
+    if (item.image) {
+        return 350;
+    } else {
+        return 150;
+    }
+}
+
 
 
 // Override to support editing the table view.

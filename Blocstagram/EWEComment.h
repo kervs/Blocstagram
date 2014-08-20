@@ -14,6 +14,6 @@
 
 @property (nonatomic, strong) EWEUser *from;
 @property (nonatomic, strong) NSString *text;
-
+- (instancetype) initWithDictionary:(NSDictionary *)commentDictionary;
 
 @end
