@@ -12,7 +12,7 @@
 @interface EWELoginViewController () <UIWebViewDelegate>
 
 @property (nonatomic, weak) UIWebView *webView;
-
+@property (nonatomic, strong) UIBarButtonItem *homeButton;
 @end
 
 @implementation EWELoginViewController
@@ -36,11 +36,18 @@ NSString *const EWELoginViewControllerDidGetAccessTokenNotification = @"EWELogin
     
     self.webView = webView;
     self.view = webView;
+  
+   
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"Login";
+    
+    self.homeButton = [[UIBarButtonItem alloc]initWithTitle:@"home" style:UIBarButtonItemStyleDone target:self action:@selector(homeB)];
+    self.navigationItem.rightBarButtonItem = self.homeButton;
+    
     NSString *urlString = [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token", [EWEDatasource instagramClientID], [self redirectURI]];
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -48,6 +55,19 @@ NSString *const EWELoginViewControllerDidGetAccessTokenNotification = @"EWELogin
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
         [self.webView loadRequest:request];
     }
+    
+}
+
+-(void) homeB {
+    NSString *urlString = [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token", [EWEDatasource instagramClientID], [self redirectURI]];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    if (url) {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        [self.webView loadRequest:request];
+    }
+    
+    
 }
 - (void) dealloc {
     // Removing this line causes a weird flickering effect when you relaunch the app after logging in, as the web view is briefly displayed, automatically authenticates with cookies, returns the access token, and dismisses the login view, sometimes in less than a second.
