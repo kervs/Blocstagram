@@ -15,7 +15,7 @@
 
 @interface EWEImagesTableViewController ()
 
-@property(nonatomic, strong) NSArray *item;
+
 
 
 @end
@@ -29,7 +29,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        self.item = [EWEDatasource sharedInstance].mediaItems;
+       
            }
     return self;
 }
@@ -61,6 +61,9 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (NSArray *) item {
+    return [[EWEDatasource sharedInstance] mediaItems];
 }
 
 - (void) refreshControlDidFire:(UIRefreshControl *) sender{
