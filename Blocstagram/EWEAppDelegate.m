@@ -21,6 +21,7 @@
     [EWEDatasource sharedInstance]; // create the data source (so it can receive the access token notification)
     
     UINavigationController *navVC = [[UINavigationController alloc] init];
+    if (![EWEDatasource sharedInstance].accessToken) {
     EWELoginViewController *loginVC = [[EWELoginViewController alloc] init];
     [navVC setViewControllers:@[loginVC] animated:YES];
     
@@ -28,6 +29,10 @@
         EWEImagesTableViewController *imagesVC = [[EWEImagesTableViewController alloc] init];
         [navVC setViewControllers:@[imagesVC] animated:YES];
     }];
+    } else {
+        EWEImagesTableViewController *imagesVC = [[EWEImagesTableViewController alloc] init];
+        [navVC setViewControllers:@[imagesVC] animated:YES];
+    }
     
     self.window.rootViewController = navVC;
     self.window.backgroundColor = [UIColor whiteColor];

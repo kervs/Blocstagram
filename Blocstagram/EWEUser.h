@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface EWEUser : NSObject
+@interface EWEUser : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *idNumber;
 @property (nonatomic, strong) NSString *userName;

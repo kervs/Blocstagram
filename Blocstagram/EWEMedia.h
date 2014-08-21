@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class EWEUser;
-@interface EWEMedia : NSObject
+@interface EWEMedia : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *idNumber;
 @property (nonatomic, strong) EWEUser *user;

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class EWEUser;
-@interface EWEComment : NSObject
+@interface EWEComment : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *idNumber;
 
