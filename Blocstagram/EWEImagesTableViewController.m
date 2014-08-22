@@ -12,9 +12,13 @@
 #import "EWEComment.h"
 #import "EWEDatasource.h"
 #import "EWEMediaTableViewCell.h"
+#import "EWEMediaFullScreenViewController.h"
+#import "EWEMediaFullScreenAnimator.h"
 
-@interface EWEImagesTableViewController ()
 
+@interface EWEImagesTableViewController () <EWEMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate>
+@property (nonatomic, weak) UIImageView *lastTappedImageView;
+@property (nonatomic, strong) EWEMediaFullScreenViewController *shareButton;
 
 
 
@@ -48,8 +52,8 @@
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshControlDidFire:) forControlEvents:UIControlEventValueChanged];
-
   
+    self.shareButton = [[EWEMediaFullScreenViewController alloc]init];
     [self.tableView registerClass:[EWEMediaTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
 }
 
@@ -123,6 +127,8 @@
     }
 }
 
+
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -146,6 +152,7 @@
     
     // Configure the cell...
     EWEMediaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mediaCell" forIndexPath:indexPath];
+    cell.delegate = self;
     cell.mediaItem = self.item[indexPath.row];
     return cell;
     
@@ -191,7 +198,57 @@
     
 }
 
+- (void) cell:(EWEMediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView {
+    NSMutableArray *itemsToShare = [NSMutableArray array];
+    
+    if (cell.mediaItem.caption.length > 0) {
+        [itemsToShare addObject:cell.mediaItem.caption];
+    }
+    
+    if (cell.mediaItem.image) {
+        [itemsToShare addObject:cell.mediaItem.image];
+    }
+    
+    if (itemsToShare.count > 0) {
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+        [self presentViewController:activityVC animated:YES completion:nil];
+    }
+}
 
+#pragma mark - EWEMediaTableViewCellDelegate
+
+- (void) cell:(EWEMediaTableViewCell *)cell didTapImageView:(UIImageView *)imageView {
+    self.lastTappedImageView = imageView;
+    EWEMediaFullScreenViewController *fullScreenVC = [[EWEMediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
+    fullScreenVC.transitioningDelegate = self;
+    fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [self presentViewController:fullScreenVC animated:YES completion:nil];
+}
+
+
+
+#pragma mark - UIViewControllerTransitioningDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                  presentingController:(UIViewController *)presenting
+                                                                      sourceController:(UIViewController *)source {
+    
+    EWEMediaFullScreenAnimator *animator = [EWEMediaFullScreenAnimator new];
+    animator.presenting = YES;
+    animator.cellImageView = self.lastTappedImageView;
+    return animator;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    EWEMediaFullScreenAnimator *animator = [EWEMediaFullScreenAnimator new];
+    animator.cellImageView = self.lastTappedImageView;
+    return animator;
+}
+
+-(void) shareButtonPressed{
+    [self.shareButton shareButtonPressed:self.view withAction:@selector(cell:didLongPressImageView:)];
+}
 /*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath

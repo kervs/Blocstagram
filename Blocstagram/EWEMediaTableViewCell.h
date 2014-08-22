@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-@class EWEMedia;
+@class EWEMedia, EWEMediaTableViewCell;
+@protocol EWEMediaTableViewCellDelegate <NSObject>
+
+- (void) cell:(EWEMediaTableViewCell *)cell didTapImageView:(UIImageView *)imageView;
+- (void) cell:(EWEMediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView;
+
+@end
 @interface EWEMediaTableViewCell : UITableViewCell
 @property(nonatomic,strong) EWEMedia *mediaItem;
+@property (nonatomic, weak) id <EWEMediaTableViewCellDelegate> delegate;
+
 + (CGFloat) heightForMediaItem:(EWEMedia *)mediaItem width:(CGFloat)width;
 
 @end
