@@ -12,11 +12,10 @@
 @interface EWEMediaFullScreenViewController : UIViewController
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIButton *shareButton;
+
 
 - (instancetype) initWithMedia:(EWEMedia *)media;
 
--(void)shareButtonPressed:(id) target withAction:(SEL)Action;
 
 - (void) centerScrollView;
 @end

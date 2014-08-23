@@ -18,7 +18,7 @@
 
 @interface EWEImagesTableViewController () <EWEMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
-@property (nonatomic, strong) EWEMediaFullScreenViewController *shareButton;
+
 
 
 
@@ -53,7 +53,7 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshControlDidFire:) forControlEvents:UIControlEventValueChanged];
   
-    self.shareButton = [[EWEMediaFullScreenViewController alloc]init];
+    
     [self.tableView registerClass:[EWEMediaTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
 }
 
@@ -246,10 +246,8 @@
     return animator;
 }
 
--(void) shareButtonPressed{
-    [self.shareButton shareButtonPressed:self.view withAction:@selector(cell:didLongPressImageView:)];
-}
 /*
+
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {

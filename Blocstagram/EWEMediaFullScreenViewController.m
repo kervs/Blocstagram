@@ -9,12 +9,15 @@
 #import "EWEMediaFullScreenViewController.h"
 #import "EWEMedia.h"
 #import "EWEImagesTableViewController.h"
+#import "EWEDatasource.h"
+#import "EWEMediaTableViewCell.h"
 
 @interface EWEMediaFullScreenViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) EWEMedia *media;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
+@property (nonatomic, strong) UIButton *shareButton;
 
 
 @end
@@ -52,16 +55,16 @@
     
     [self.view addSubview:self.scrollView];
     
-   
     self.shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.shareButton setTitle:@"Share" forState:UIControlStateNormal];
-    self.shareButton.enabled = YES;
+    [self.shareButton addTarget:self action:@selector(ButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     
     
     [self.view addSubview:self.shareButton];
     
-    
+   
+
     self.imageView = [UIImageView new];
     self.imageView.image = self.media.image;
     
@@ -122,8 +125,8 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) shareButtonPress {
-}
+
+
 #pragma mark - UIScrollViewDelegate
 
 - (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -161,8 +164,16 @@
     }
 }
 
--(void)shareButtonPressed:(id) target withAction:(SEL)Action {
-    [self.shareButton addTarget:target action:Action forControlEvents:UIControlEventTouchUpInside];
+-(void) ButtonPressed {
+    NSMutableArray *itemsToShare = [NSMutableArray array];
+    
+    [itemsToShare addObject:self.imageView.image];
+    
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+        [self presentViewController:activityVC animated:YES completion:nil];
+    
+ 
 }
 
 /*
