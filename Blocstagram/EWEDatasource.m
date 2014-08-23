@@ -48,6 +48,7 @@ NSMutableArray *_mediaItems;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (storedMediaItems.count > 1) {
                         NSMutableArray *mutableMediaItems = [storedMediaItems mutableCopy];
+                        [self requestNewItemsWithCompletionHandler:nil];
                         
                         [self willChangeValueForKey:@"mediaItems"];
                         self.mediaItems = mutableMediaItems;
