@@ -227,6 +227,9 @@
 }
 
 
+- (void) cell:(EWEMediaTableViewCell *)cell didDoubleTapImageView:(UIImageView *)imageView {
+    [[EWEDatasource sharedInstance]requestNewItemsWithCompletionHandler:nil];
+}
 
 #pragma mark - UIViewControllerTransitioningDelegate
 

@@ -21,6 +21,7 @@
 
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
 @end
@@ -41,10 +42,18 @@ static NSParagraphStyle *paragraphStyle;
         self.mediaImageView = [[UIImageView alloc] init];
         self.mediaImageView.userInteractionEnabled = YES;
         
+         self.doubleTapGesture =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapFired:)];
+        self.doubleTapGesture.delegate = self;
+        self.doubleTapGesture.numberOfTapsRequired = 2;
+        [self.doubleTapGesture setNumberOfTouchesRequired:2];
+        
+        [self.mediaImageView addGestureRecognizer:self.doubleTapGesture];
+        
         self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
         self.tapGestureRecognizer.delegate = self;
         
         [self.mediaImageView addGestureRecognizer:self.tapGestureRecognizer];
+        
         self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFired:)];
         self.longPressGestureRecognizer.delegate = self;
         [self.mediaImageView addGestureRecognizer:self.longPressGestureRecognizer];
@@ -213,6 +222,12 @@ static NSParagraphStyle *paragraphStyle;
     
     
 }
+
+-(void) doubleTapFired: (UITapGestureRecognizer *)sender {
+    [self.delegate cell:self didDoubleTapImageView:self.mediaImageView];
+}
+
+
 
 #pragma mark - UIGestureRecognizerDelegate
 
