@@ -24,4 +24,6 @@ typedef void (^EWENewItemCompletionBlock)(NSError *error);
 - (void) requestNewItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
 -(void) requestOldItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
 
+- (void) downloadImageForMediaItem:(EWEMedia *)mediaItem;
+
 @end

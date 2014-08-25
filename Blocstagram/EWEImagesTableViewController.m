@@ -135,6 +135,9 @@
     [self infiniteScrollIfNecessary];
 }
 
+//-(void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+//    [self infiniteScrollIfNecessary];
+//}
 
 #pragma mark - Table view data source
 
@@ -247,6 +250,12 @@
     EWEMediaFullScreenAnimator *animator = [EWEMediaFullScreenAnimator new];
     animator.cellImageView = self.lastTappedImageView;
     return animator;
+}
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    EWEMedia *mediaItem = [EWEDatasource sharedInstance].mediaItems[indexPath.row];
+    if (mediaItem.downloadState == EWEMediaDownloadStateNeedsImage) {
+        [[EWEDatasource sharedInstance] downloadImageForMediaItem:mediaItem];
+    }
 }
 
 /*
