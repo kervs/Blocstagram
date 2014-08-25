@@ -48,7 +48,7 @@ NSString *const EWELoginViewControllerDidGetAccessTokenNotification = @"EWELogin
     self.homeButton = [[UIBarButtonItem alloc]initWithTitle:@"home" style:UIBarButtonItemStyleDone target:self action:@selector(homeB)];
     self.navigationItem.rightBarButtonItem = self.homeButton;
     
-    NSString *urlString = [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token", [EWEDatasource instagramClientID], [self redirectURI]];
+     NSString *urlString = [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?client_id=%@&scope=likes+comments+relationships&redirect_uri=%@&response_type=token", [EWEDatasource instagramClientID], [self redirectURI]];
     NSURL *url = [NSURL URLWithString:urlString];
     
     if (url) {

@@ -13,6 +13,7 @@
 - (void) cell:(EWEMediaTableViewCell *)cell didTapImageView:(UIImageView *)imageView;
 - (void) cell:(EWEMediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView;
 - (void) cell:(EWEMediaTableViewCell *)cell didDoubleTapImageView:(UIImageView *)imageView;
+- (void) cellDidPressLikeButton:(EWEMediaTableViewCell *)cell;
 
 @end
 @interface EWEMediaTableViewCell : UITableViewCell

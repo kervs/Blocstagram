@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EWELikeButton.h"
 @class EWEUser;
 typedef NS_ENUM(NSInteger, EWEMediaDownloadState) {
     EWEMediaDownloadStateNeedsImage             = 0,
@@ -24,6 +25,9 @@ typedef NS_ENUM(NSInteger, EWEMediaDownloadState) {
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *caption;
 @property (nonatomic, strong) NSArray *comments;
+@property (nonatomic, strong) NSString *likes;
+@property (nonatomic, assign) EWELikeState likeState;
+
 @property (nonatomic, assign) EWEMediaDownloadState downloadState;
 
 - (instancetype) initWithDictionary:(NSDictionary *)mediaDictionary;

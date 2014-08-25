@@ -21,6 +21,8 @@ typedef void (^EWENewItemCompletionBlock)(NSError *error);
 + (NSString *) instagramClientID;
 @property (nonatomic, strong, readonly) NSString *accessToken;
 
+ - (void) toggleLikeOnMediaItem:(EWEMedia *)mediaItem;
+
 - (void) requestNewItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
 -(void) requestOldItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
 

@@ -127,6 +127,10 @@
     }
 }
 
+- (void) cellDidPressLikeButton:(EWEMediaTableViewCell *)cell {
+    [[EWEDatasource sharedInstance] toggleLikeOnMediaItem:cell.mediaItem];
+}
+
 
 
 #pragma mark - UIScrollViewDelegate

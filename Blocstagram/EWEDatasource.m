@@ -219,6 +219,51 @@ NSMutableArray *_mediaItems;
     return dataPath;
 }
 
+#pragma mark - Liking Media Items
+
+- (void) toggleLikeOnMediaItem:(EWEMedia *)mediaItem {
+    NSString *urlString = [NSString stringWithFormat:@"media/%@/likes", mediaItem.idNumber];
+    NSDictionary *parameters = @{@"access_token": self.accessToken};
+    
+    if (mediaItem.likeState == EWELikeStateNotLiked) {
+        
+        mediaItem.likeState = EWELikeStateLiking;
+        
+        [self.instagramOperationManager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            mediaItem.likeState = EWELikeStateLiked;
+            [self reloadMediaItem:mediaItem];
+            [self requestNewItemsWithCompletionHandler:nil];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            mediaItem.likeState = EWELikeStateNotLiked;
+            
+            [self reloadMediaItem:mediaItem];
+        }];
+        
+    } else if (mediaItem.likeState == EWELikeStateLiked) {
+        
+        mediaItem.likeState = EWELikeStateUnliking;
+        
+        [self.instagramOperationManager DELETE:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            mediaItem.likeState = EWELikeStateNotLiked;
+            [self requestNewItemsWithCompletionHandler:nil];
+            [self reloadMediaItem:mediaItem];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            mediaItem.likeState = EWELikeStateLiked;
+            [self requestNewItemsWithCompletionHandler:nil];
+            [self reloadMediaItem:mediaItem];
+        }];
+        
+    }
+    
+    [self reloadMediaItem:mediaItem];
+}
+
+- (void) reloadMediaItem:(EWEMedia *)mediaItem {
+    NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
+    NSUInteger index = [mutableArrayWithKVO indexOfObject:mediaItem];
+    [mutableArrayWithKVO replaceObjectAtIndex:index withObject:mediaItem];
+}
 - (void) downloadImageForMediaItem:(EWEMedia *)mediaItem {
     if (mediaItem.mediaURL && !mediaItem.image) {
         mediaItem.downloadState = EWEMediaDownloadStateDownloadInProgress;
