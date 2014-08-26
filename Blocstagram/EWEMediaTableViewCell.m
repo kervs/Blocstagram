@@ -11,8 +11,9 @@
 #import "EWEUser.h"
 #import "EWEComment.h"
 #import "EWELikeButton.h"
+#import "EWEComposeCommentView.h"
 
-@interface EWEMediaTableViewCell () <UIGestureRecognizerDelegate>
+@interface EWEMediaTableViewCell () <UIGestureRecognizerDelegate, EWEComposeCommentViewDelegate>
 @property (nonatomic, strong) UIImageView *mediaImageView;
 @property (nonatomic, strong) UILabel *usernameAndCaptionLabel;
 @property (nonatomic, strong) UILabel *commentLabel;
@@ -26,6 +27,7 @@
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (nonatomic, strong) EWELikeButton *likeButton;
+@property (nonatomic, strong) EWEComposeCommentView *commentView;
 
 @end
 static UIFont *lightFont;
@@ -68,22 +70,29 @@ static NSParagraphStyle *paragraphStyle;
         
         self.likeLabel = [[UILabel alloc] init];
         self.likeLabel.numberOfLines = 0;
+        self.backgroundColor = usernameLabelGray;
     
         self.likeButton = [[EWELikeButton alloc] init];
         [self.likeButton addTarget:self action:@selector(likePressed:) forControlEvents:UIControlEventTouchUpInside];
         self.likeButton.backgroundColor = usernameLabelGray;
         
-        for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.commentLabel, self.likeButton, self.likeLabel]) {
+        self.commentView = [[EWEComposeCommentView alloc] init];
+        self.commentView.delegate = self;
+
+        
+        for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.commentLabel, self.likeButton, self.likeLabel, self.commentView]) {
             [self.contentView addSubview:view];
             view.translatesAutoresizingMaskIntoConstraints = NO;
         }
-          NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel, _likeButton, _likeLabel);
+          NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel, _likeButton, _likeLabel, _commentView);
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mediaImageView]|" options:kNilOptions metrics:nil views:viewDictionary]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel][_likeLabel]-[_likeButton(==38)]|" options:NSLayoutFormatAlignAllTop | NSLayoutFormatAlignAllBottom metrics:nil views:viewDictionary]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_commentLabel]|" options:kNilOptions metrics:nil views:viewDictionary]];
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mediaImageView][_usernameAndCaptionLabel][_commentLabel]"
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_commentView]|" options:kNilOptions metrics:nil views:viewDictionary]];
+        
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mediaImageView][_usernameAndCaptionLabel][_commentLabel][_commentView(==100)]"
                                                                                  options:kNilOptions
                                                                                  metrics:nil
                                                                                    views:viewDictionary]];
@@ -210,7 +219,7 @@ static NSParagraphStyle *paragraphStyle;
     [layoutCell layoutIfNeeded];
 
     // The height will be wherever the bottom of the comments label is
-    return CGRectGetMaxY(layoutCell.commentLabel.frame);
+    return CGRectGetMaxY(layoutCell.commentView.frame);
 }
 - (void) setMediaItem:(EWEMedia *)mediaItem {
     _mediaItem = mediaItem;
@@ -219,7 +228,7 @@ static NSParagraphStyle *paragraphStyle;
     self.commentLabel.attributedText = [self commentString];
     self.likeButton.likeButtonState = mediaItem.likeState;
     self.likeLabel.attributedText = [self likeString];
-    
+    self.commentView.text = mediaItem.temporaryComment;
    
 }
 
@@ -260,6 +269,23 @@ static NSParagraphStyle *paragraphStyle;
 }
 - (void) likePressed:(UIButton *)sender {
     [self.delegate cellDidPressLikeButton:self];
+    self.likeLabel.attributedText = [self likeString];
+}
+#pragma mark - EWEComposeCommentViewDelegate
+
+- (void) commentViewDidPressCommentButton:(EWEComposeCommentView *)sender {
+    [self.delegate cell:self didComposeComment:self.mediaItem.temporaryComment];
 }
 
+- (void) commentView:(EWEComposeCommentView *)sender textDidChange:(NSString *)text {
+    self.mediaItem.temporaryComment = text;
+}
+
+- (void) commentViewWillStartEditing:(EWEComposeCommentView *)sender {
+    [self.delegate cellWillStartComposingComment:self];
+}
+
+- (void) stopComposingComment {
+    [self.commentView stopComposingComment];
+}
 @end

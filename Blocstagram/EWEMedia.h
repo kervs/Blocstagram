@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, EWEMediaDownloadState) {
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) NSString *likes;
 @property (nonatomic, assign) EWELikeState likeState;
+@property (nonatomic, strong) NSString *temporaryComment;
 
 @property (nonatomic, assign) EWEMediaDownloadState downloadState;
 

@@ -25,10 +25,15 @@
 @implementation EWEMediaFullScreenViewController
 
 - (instancetype) initWithMedia:(EWEMedia *)media {
+    return [self initWithMedia:media andDelegate:nil];
+}
+
+- (instancetype) initWithMedia:(EWEMedia *)media andDelegate:(id<EWEMediaFullScreenDelegate>) delegate {
     self = [super init];
     
     if (self) {
         self.media = media;
+        self.delegate = delegate;
     }
     
     return self;
@@ -55,15 +60,13 @@
     
     [self.view addSubview:self.scrollView];
     
-    self.shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.shareButton setTitle:@"Share" forState:UIControlStateNormal];
-    [self.shareButton addTarget:self action:@selector(ButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(shareMediaItem:fromController:)]) {
+        self.shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.shareButton setTitle:@"Share" forState:UIControlStateNormal];
+        [self.shareButton addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.shareButton];
+    }
     
-    
-    
-    [self.view addSubview:self.shareButton];
-    
-   
 
     self.imageView = [UIImageView new];
     self.imageView.image = self.media.image;
@@ -164,16 +167,10 @@
     }
 }
 
--(void) ButtonPressed {
-    NSMutableArray *itemsToShare = [NSMutableArray array];
-    
-    [itemsToShare addObject:self.imageView.image];
-    
-    
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
-        [self presentViewController:activityVC animated:YES completion:nil];
-    
- 
+-(void) buttonPressed {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(shareMediaItem:fromController:)]) {
+        [self.delegate shareMediaItem:self.media fromController:self];
+    }
 }
 
 /*
