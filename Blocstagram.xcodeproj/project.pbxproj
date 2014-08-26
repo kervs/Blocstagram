@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3B0A2C8919AB92100013FC57 /* EWECircleSpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0A2C8819AB92100013FC57 /* EWECircleSpinnerView.m */; };
 		3B0A2C8F19ABBC670013FC57 /* EWELikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0A2C8E19ABBC670013FC57 /* EWELikeButton.m */; };
+		3B0A2C9219ABF8FF0013FC57 /* EWEComposeCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0A2C9119ABF8FF0013FC57 /* EWEComposeCommentView.m */; };
 		3B287D5619A11FEB00739DBE /* EWEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D5519A11FEB00739DBE /* EWEUser.m */; };
 		3B287D5919A1208900739DBE /* EWEMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D5819A1208900739DBE /* EWEMedia.m */; };
 		3B287D5C19A1215900739DBE /* EWEComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D5B19A1215900739DBE /* EWEComment.m */; };
@@ -58,6 +59,8 @@
 		3B0A2C8819AB92100013FC57 /* EWECircleSpinnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWECircleSpinnerView.m; sourceTree = "<group>"; };
 		3B0A2C8D19ABBC670013FC57 /* EWELikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWELikeButton.h; sourceTree = "<group>"; };
 		3B0A2C8E19ABBC670013FC57 /* EWELikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWELikeButton.m; sourceTree = "<group>"; };
+		3B0A2C9019ABF8FF0013FC57 /* EWEComposeCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEComposeCommentView.h; sourceTree = "<group>"; };
+		3B0A2C9119ABF8FF0013FC57 /* EWEComposeCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEComposeCommentView.m; sourceTree = "<group>"; };
 		3B287D5419A11FEB00739DBE /* EWEUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEUser.h; sourceTree = "<group>"; };
 		3B287D5519A11FEB00739DBE /* EWEUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEUser.m; sourceTree = "<group>"; };
 		3B287D5719A1208900739DBE /* EWEMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEMedia.h; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				3B0A2C8819AB92100013FC57 /* EWECircleSpinnerView.m */,
 				3B0A2C8D19ABBC670013FC57 /* EWELikeButton.h */,
 				3B0A2C8E19ABBC670013FC57 /* EWELikeButton.m */,
+				3B0A2C9019ABF8FF0013FC57 /* EWEComposeCommentView.h */,
+				3B0A2C9119ABF8FF0013FC57 /* EWEComposeCommentView.m */,
 				3B7E2C2C199DEC8C008FB631 /* Images.xcassets */,
 				3B7E2C21199DEC8C008FB631 /* Supporting Files */,
 			);
@@ -385,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B287D5619A11FEB00739DBE /* EWEUser.m in Sources */,
+				3B0A2C9219ABF8FF0013FC57 /* EWEComposeCommentView.m in Sources */,
 				3B7E2C60199E6889008FB631 /* EWEImagesTableViewController.m in Sources */,
 				3B0A2C8919AB92100013FC57 /* EWECircleSpinnerView.m in Sources */,
 				3B7E2C2B199DEC8C008FB631 /* EWEAppDelegate.m in Sources */,

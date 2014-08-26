@@ -22,7 +22,7 @@ typedef void (^EWENewItemCompletionBlock)(NSError *error);
 @property (nonatomic, strong, readonly) NSString *accessToken;
 
  - (void) toggleLikeOnMediaItem:(EWEMedia *)mediaItem;
-
+- (void) commentOnMediaItem:(EWEMedia *)mediaItem withCommentText:(NSString *)commentText;
 - (void) requestNewItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
 -(void) requestOldItemsWithCompletionHandler:(EWENewItemCompletionBlock)completionHandler;
 
