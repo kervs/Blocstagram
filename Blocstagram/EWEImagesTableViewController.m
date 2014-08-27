@@ -14,9 +14,10 @@
 #import "EWEMediaTableViewCell.h"
 #import "EWEMediaFullScreenViewController.h"
 #import "EWEMediaFullScreenAnimator.h"
+#import "EWECameraViewController.h"
 
 
-@interface EWEImagesTableViewController () <EWEMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate, EWEMediaFullScreenDelegate>
+@interface EWEImagesTableViewController () <EWEMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate, EWEMediaFullScreenDelegate, EWECameraViewControllerDelegate>
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
 @property (nonatomic, weak) UIView *lastSelectedCommentView;
 @property (nonatomic, assign) CGFloat lastKeyboardAdjustment;
@@ -58,6 +59,12 @@
     [self.tableView registerClass:[EWEMediaTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
     
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+   
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] ||
+        [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+        UIBarButtonItem *cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(cameraPressed:)];
+        self.navigationItem.rightBarButtonItem = cameraButton;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -155,7 +162,25 @@
     
 }
 
+#pragma mark - Camera and EWECameraViewControllerDelegate
 
+- (void) cameraPressed:(UIBarButtonItem *) sender {
+    EWECameraViewController *cameraVC = [[EWECameraViewController alloc] init];
+    cameraVC.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cameraVC];
+    [self presentViewController:nav animated:YES completion:nil];
+    return;
+}
+
+- (void) cameraViewController:(EWECameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image {
+    [cameraViewController dismissViewControllerAnimated:YES completion:^{
+        if (image) {
+            NSLog(@"Got an image!");
+        } else {
+            NSLog(@"Closed without an image.");
+        }
+    }];
+}
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

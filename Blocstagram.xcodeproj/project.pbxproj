@@ -41,6 +41,9 @@
 		3B7E2C5C199DF171008FB631 /* 9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C52199DF171008FB631 /* 9.jpg */; };
 		3B7E2C5D199DF171008FB631 /* 10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B7E2C53199DF171008FB631 /* 10.JPG */; };
 		3B7E2C60199E6889008FB631 /* EWEImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E2C5F199E6889008FB631 /* EWEImagesTableViewController.m */; };
+		3BD4421E19AD5080003893BB /* EWECameraToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD4421D19AD5080003893BB /* EWECameraToolbar.m */; };
+		3BD4422119AD51C8003893BB /* EWECameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD4422019AD51C8003893BB /* EWECameraViewController.m */; };
+		3BD4422419AD996B003893BB /* UIImage+EWEImageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD4422319AD996B003893BB /* UIImage+EWEImageUtilities.m */; };
 		D4F9C09D1FC2425C93D3AB95 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329AB55AA2F460D98AE62F9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +108,12 @@
 		3B7E2C53199DF171008FB631 /* 10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.JPG; sourceTree = "<group>"; };
 		3B7E2C5E199E6889008FB631 /* EWEImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEImagesTableViewController.h; sourceTree = "<group>"; };
 		3B7E2C5F199E6889008FB631 /* EWEImagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEImagesTableViewController.m; sourceTree = "<group>"; };
+		3BD4421C19AD5080003893BB /* EWECameraToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWECameraToolbar.h; sourceTree = "<group>"; };
+		3BD4421D19AD5080003893BB /* EWECameraToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWECameraToolbar.m; sourceTree = "<group>"; };
+		3BD4421F19AD51C8003893BB /* EWECameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWECameraViewController.h; sourceTree = "<group>"; };
+		3BD4422019AD51C8003893BB /* EWECameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWECameraViewController.m; sourceTree = "<group>"; };
+		3BD4422219AD996B003893BB /* UIImage+EWEImageUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EWEImageUtilities.h"; sourceTree = "<group>"; };
+		3BD4422319AD996B003893BB /* UIImage+EWEImageUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EWEImageUtilities.m"; sourceTree = "<group>"; };
 		6329AB55AA2F460D98AE62F9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EACAA72F7FE4EC7B92FF72C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -196,6 +205,12 @@
 				3B0A2C8E19ABBC670013FC57 /* EWELikeButton.m */,
 				3B0A2C9019ABF8FF0013FC57 /* EWEComposeCommentView.h */,
 				3B0A2C9119ABF8FF0013FC57 /* EWEComposeCommentView.m */,
+				3BD4421C19AD5080003893BB /* EWECameraToolbar.h */,
+				3BD4421D19AD5080003893BB /* EWECameraToolbar.m */,
+				3BD4421F19AD51C8003893BB /* EWECameraViewController.h */,
+				3BD4422019AD51C8003893BB /* EWECameraViewController.m */,
+				3BD4422219AD996B003893BB /* UIImage+EWEImageUtilities.h */,
+				3BD4422319AD996B003893BB /* UIImage+EWEImageUtilities.m */,
 				3B7E2C2C199DEC8C008FB631 /* Images.xcassets */,
 				3B7E2C21199DEC8C008FB631 /* Supporting Files */,
 			);
@@ -392,6 +407,7 @@
 				3B287D5619A11FEB00739DBE /* EWEUser.m in Sources */,
 				3B0A2C9219ABF8FF0013FC57 /* EWEComposeCommentView.m in Sources */,
 				3B7E2C60199E6889008FB631 /* EWEImagesTableViewController.m in Sources */,
+				3BD4422419AD996B003893BB /* UIImage+EWEImageUtilities.m in Sources */,
 				3B0A2C8919AB92100013FC57 /* EWECircleSpinnerView.m in Sources */,
 				3B7E2C2B199DEC8C008FB631 /* EWEAppDelegate.m in Sources */,
 				3B287D5919A1208900739DBE /* EWEMedia.m in Sources */,
@@ -399,8 +415,10 @@
 				3B7E2C27199DEC8C008FB631 /* main.m in Sources */,
 				3B287D5C19A1215900739DBE /* EWEComment.m in Sources */,
 				3B287D6219A1480100739DBE /* EWEMediaTableViewCell.m in Sources */,
+				3BD4421E19AD5080003893BB /* EWECameraToolbar.m in Sources */,
 				3B287D5F19A1223100739DBE /* EWEDatasource.m in Sources */,
 				3B5C755019A6ADF400293557 /* EWEMediaFullScreenAnimator.m in Sources */,
+				3BD4422119AD51C8003893BB /* EWECameraViewController.m in Sources */,
 				3B287D6519A27F1B00739DBE /* EWELoginViewController.m in Sources */,
 				3B0A2C8F19ABBC670013FC57 /* EWELikeButton.m in Sources */,
 			);

@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class EWECameraViewController;
+
+@protocol EWECameraViewControllerDelegate <NSObject>
+
+- (void) cameraViewController:(EWECameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image;
+
+@end
+
 @interface EWECameraViewController : UIViewController
+
+@property (nonatomic, weak) NSObject <EWECameraViewControllerDelegate> *delegate;
 
 @end
