@@ -14,7 +14,6 @@
 
 @interface EWEMediaFullScreenViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) EWEMedia *media;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
 @property (nonatomic, strong) UIButton *shareButton;
@@ -101,6 +100,8 @@
     self.shareButton.frame = CGRectMake(180, 30, 160.0, 40.0);
     self.scrollView.minimumZoomScale = minScale;
     self.scrollView.maximumZoomScale = 1;
+    
+    [self recalculateZoomScale];
 }
 - (void)centerScrollView {
     [self.imageView sizeToFit];
@@ -128,7 +129,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void) recalculateZoomScale {
+     CGSize scrollViewContentSize = self.scrollView.contentSize;
+    
+    scrollViewContentSize.height /= self.scrollView.zoomScale;
+    scrollViewContentSize.width /= self.scrollView.zoomScale;
+    
+    }
 
 #pragma mark - UIScrollViewDelegate
 

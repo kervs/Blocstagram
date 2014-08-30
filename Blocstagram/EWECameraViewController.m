@@ -10,8 +10,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import "UIImage+EWEImageUtilities.h"
 #import "EWECameraToolbar.h"
+#import "EWECropBox.h"
+ #import "EWEImageLibraryViewController.h"
 
-@interface EWECameraViewController () <EWECameraToolbarDelegate, UIAlertViewDelegate>
+@interface EWECameraViewController () <EWECameraToolbarDelegate, UIAlertViewDelegate,EWEImageLibraryViewControllerDelegate>
 
 @property (nonatomic, strong) UIView *imagePreview;
 
@@ -19,8 +21,7 @@
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
 
-@property (nonatomic, strong) NSArray *horizontalLines;
-@property (nonatomic, strong) NSArray *verticalLines;
+@property (nonatomic, strong) EWECropBox *cropBox;
 @property (nonatomic, strong) UIToolbar *topView;
 @property (nonatomic, strong) UIToolbar *bottomView;
 
@@ -51,6 +52,7 @@
     self.bottomView.barTintColor = whiteBG;
     self.topView.alpha = 0.5;
     self.bottomView.alpha = 0.5;
+    self.cropBox = [EWECropBox new];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -63,42 +65,15 @@
 }
 
 - (void) addViewsToViewHierarchy {
-    NSMutableArray *views = [@[self.imagePreview, self.topView, self.bottomView] mutableCopy];
-    [views addObjectsFromArray:self.horizontalLines];
-    [views addObjectsFromArray:self.verticalLines];
+    NSMutableArray *views = [@[self.imagePreview, self.topView, self.bottomView, self.cropBox] mutableCopy];
+    
     [views addObject:self.cameraToolbar];
     
     for (UIView *view in views) {
         [self.view addSubview:view];
     }
 }
-- (NSArray *) horizontalLines {
-    if (!_horizontalLines) {
-        _horizontalLines = [self newArrayOfFourWhiteViews];
-    }
-    
-    return _horizontalLines;
-}
 
-- (NSArray *) verticalLines {
-    if (!_verticalLines) {
-        _verticalLines = [self newArrayOfFourWhiteViews];
-    }
-    
-    return _verticalLines;
-}
-
-- (NSArray *) newArrayOfFourWhiteViews {
-    NSMutableArray *array = [NSMutableArray array];
-    
-    for (int i = 0; i < 4; i++) {
-        UIView *view = [UIView new];
-        view.backgroundColor = [UIColor whiteColor];
-        [array addObject:view];
-    }
-    
-    return array;
-}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -169,22 +144,7 @@
     CGFloat heightOfBottomView = CGRectGetHeight(self.view.frame) - yOriginOfBottomView;
     self.bottomView.frame = CGRectMake(0, yOriginOfBottomView, width, heightOfBottomView);
     
-    CGFloat thirdOfWidth = width / 3;
-    
-    for (int i = 0; i < 4; i++) {
-        UIView *horizontalLine = self.horizontalLines[i];
-        UIView *verticalLine = self.verticalLines[i];
-        
-        horizontalLine.frame = CGRectMake(0, (i * thirdOfWidth) + CGRectGetMaxY(self.topView.frame), width, 0.5);
-        
-        CGRect verticalFrame = CGRectMake(i * thirdOfWidth, CGRectGetMaxY(self.topView.frame), 0.5, width);
-        
-        if (i == 3) {
-            verticalFrame.origin.x -= 0.5;
-        }
-        
-        verticalLine.frame = verticalFrame;
-    }
+    self.cropBox.frame = CGRectMake(0, CGRectGetMaxY(self.topView.frame), width, width);
     
     self.imagePreview.frame = self.view.bounds;
     self.captureVideoPreviewLayer.frame = self.imagePreview.bounds;
@@ -192,7 +152,7 @@
     CGFloat cameraToolbarHeight = 100;
     self.cameraToolbar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - cameraToolbarHeight, width, cameraToolbarHeight);
 }
-#pragma mark - BLCCameraToolbarDelegate
+#pragma mark - EWECameraToolbarDelegate
 
 - (void) leftButtonPressedOnToolbar:(EWECameraToolbar *)toolbar {
     AVCaptureDeviceInput *currentCameraInput = self.session.inputs.firstObject;
@@ -229,7 +189,9 @@
     }
 }
 - (void) rightButtonPressedOnToolbar:(EWECameraToolbar *)toolbar {
-    NSLog(@"Photo library button pressed.");
+    EWEImageLibraryViewController *imageLibraryVC = [[EWEImageLibraryViewController alloc] init];
+    imageLibraryVC.delegate = self;
+    [self.navigationController pushViewController:imageLibraryVC animated:YES];
 }
 - (void) cameraButtonPressedOnToolbar:(EWECameraToolbar *)toolbar {
     AVCaptureConnection *videoConnection;
@@ -252,15 +214,8 @@
             image = [image imageWithFixedOrientation];
             image = [image imageResizedToMatchAspectRatioOfSize:self.captureVideoPreviewLayer.bounds.size];
             
-            UIView *leftLine = self.verticalLines.firstObject;
-            UIView *rightLine = self.verticalLines.lastObject;
-            UIView *topLine = self.horizontalLines.firstObject;
-            UIView *bottomLine = self.horizontalLines.lastObject;
+            CGRect gridRect = self.cropBox.frame;
             
-            CGRect gridRect = CGRectMake(CGRectGetMinX(leftLine.frame),
-                                         CGRectGetMinY(topLine.frame),
-                                         CGRectGetMaxX(rightLine.frame) - CGRectGetMinX(leftLine.frame),
-                                         CGRectGetMinY(bottomLine.frame) - CGRectGetMinY(topLine.frame));
             
             CGRect cropRect = gridRect;
             cropRect.origin.x = (CGRectGetMinX(gridRect) + (image.size.width - CGRectGetWidth(gridRect)) / 2);
@@ -279,6 +234,12 @@
         }
     }];
 }
+#pragma mark - EWEImageLibraryViewControllerDelegate
+
+- (void) imageLibraryViewController:(EWEImageLibraryViewController *)imageLibraryViewController didCompleteWithImage:(UIImage *)image {
+    [self.delegate cameraViewController:self didCompleteWithImage:image];
+}
+
 /*
 #pragma mark - Navigation
 

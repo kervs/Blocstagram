@@ -15,9 +15,10 @@
 #import "EWEMediaFullScreenViewController.h"
 #import "EWEMediaFullScreenAnimator.h"
 #import "EWECameraViewController.h"
+#import "EWEImageLibraryViewController.h"
 
 
-@interface EWEImagesTableViewController () <EWEMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate, EWEMediaFullScreenDelegate, EWECameraViewControllerDelegate>
+@interface EWEImagesTableViewController () <EWEMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate, EWEMediaFullScreenDelegate, EWECameraViewControllerDelegate,EWEImageLibraryViewControllerDelegate>
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
 @property (nonatomic, weak) UIView *lastSelectedCommentView;
 @property (nonatomic, assign) CGFloat lastKeyboardAdjustment;
@@ -150,6 +151,7 @@
 
 - (void) cellDidPressLikeButton:(EWEMediaTableViewCell *)cell {
     [[EWEDatasource sharedInstance] toggleLikeOnMediaItem:cell.mediaItem];
+  
 }
 - (void)viewWillAppear:(BOOL)animated {
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
@@ -158,20 +160,40 @@
     }
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
-    
-}
 
-#pragma mark - Camera and EWECameraViewControllerDelegate
+
+ #pragma mark - Camera, EWECameraViewControllerDelegate, and EWEImageLibraryViewControllerDelegate
 
 - (void) cameraPressed:(UIBarButtonItem *) sender {
-    EWECameraViewController *cameraVC = [[EWECameraViewController alloc] init];
-    cameraVC.delegate = self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cameraVC];
-    [self presentViewController:nav animated:YES completion:nil];
+    
+    UIViewController *imageVC;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        EWECameraViewController *cameraVC = [[EWECameraViewController alloc] init];
+        cameraVC.delegate = self;
+        imageVC = cameraVC;
+    } else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+        EWEImageLibraryViewController *imageLibraryVC = [[EWEImageLibraryViewController alloc] init];
+        imageLibraryVC.delegate = self;
+        imageVC = imageLibraryVC;
+    }
+    
+    if (imageVC) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
+        [self presentViewController:nav animated:YES completion:nil];
+    }
     return;
 }
-
+- (void) imageLibraryViewController:(EWEImageLibraryViewController *)imageLibraryViewController didCompleteWithImage:(UIImage *)image {
+    [imageLibraryViewController dismissViewControllerAnimated:YES completion:^{
+        if (image) {
+            NSLog(@"Got an image!");
+        } else {
+            NSLog(@"Closed without an image.");
+        }
+    }];
+}
 - (void) cameraViewController:(EWECameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image {
     [cameraViewController dismissViewControllerAnimated:YES completion:^{
         if (image) {
@@ -260,7 +282,7 @@
         
         EWEMedia *item = [EWEDatasource sharedInstance].mediaItems[indexPath.row];
         [[EWEDatasource sharedInstance] deleteMediaItem:item];
-        }
+    }
         
     
     
@@ -312,8 +334,9 @@
 
 #pragma mark - Keyboard Handling
 
-- (void)keyboardWillShow:(NSNotification *)notification
-{
+
+
+- (void)keyboardWillShow:(NSNotification *)notification {
     // Get the frame of the keyboard within self.view's coordinate system
     NSValue *frameValue = notification.userInfo[UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameInScreenCoordinates = frameValue.CGRectValue;
@@ -330,22 +353,28 @@
     CGFloat keyboardY = CGRectGetMinY(keyboardFrameInViewCoordinates);
     CGFloat commentViewY = CGRectGetMinY(commentViewFrameInViewCoordinates);
     CGFloat difference = commentViewY - keyboardY;
-    
+    if (self.lastKeyboardAdjustment != 0) {
+        contentInsets.bottom -= self.lastKeyboardAdjustment;
+        scrollIndicatorInsets.bottom -=  self.lastKeyboardAdjustment;
+        contentOffset.y -=  self.lastKeyboardAdjustment;
+
+    }
+   
     if (difference > 0) {
         heightToScroll += difference;
     }
-    
+
     if (CGRectIntersectsRect(keyboardFrameInViewCoordinates, commentViewFrameInViewCoordinates)) {
         // The two frames intersect (the keyboard would block the view)
         CGRect intersectionRect = CGRectIntersection(keyboardFrameInViewCoordinates, commentViewFrameInViewCoordinates);
         heightToScroll += CGRectGetHeight(intersectionRect);
     }
-    
+
     if (heightToScroll > 0) {
         contentInsets.bottom += heightToScroll;
         scrollIndicatorInsets.bottom += heightToScroll;
         contentOffset.y += heightToScroll;
-        
+
         NSNumber *durationNumber = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
         NSNumber *curveNumber = notification.userInfo[UIKeyboardAnimationCurveUserInfoKey];
         
@@ -359,29 +388,37 @@
             self.tableView.contentOffset = contentOffset;
         } completion:nil];
     }
+
+   self.lastKeyboardAdjustment = heightToScroll;
     
-    self.lastKeyboardAdjustment = heightToScroll;
+   
+   
+				
+	
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    UIEdgeInsets contentInsets = self.tableView.contentInset;
-    contentInsets.bottom -= self.lastKeyboardAdjustment;
+//    UIEdgeInsets contentInsets = self.tableView.contentInset;
+//    contentInsets.bottom -= self.lastKeyboardAdjustment;
+//    
+//    UIEdgeInsets scrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
+//    scrollIndicatorInsets.bottom -= self.lastKeyboardAdjustment;
+//    
+//    self.lastKeyboardAdjustment = 0;
+//    
+//    NSNumber *durationNumber = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+//    NSNumber *curveNumber = notification.userInfo[UIKeyboardAnimationCurveUserInfoKey];
+//    
+//    NSTimeInterval duration = durationNumber.doubleValue;
+//    UIViewAnimationCurve curve = curveNumber.unsignedIntegerValue;
+//    UIViewAnimationOptions options = curve << 16;
+//    
+//    [UIView animateWithDuration:duration delay:0 options:options animations:^{
+//        self.tableView.contentInset = contentInsets;
+//        self.tableView.scrollIndicatorInsets = scrollIndicatorInsets;
+//    } completion:nil];
     
-    UIEdgeInsets scrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-    scrollIndicatorInsets.bottom -= self.lastKeyboardAdjustment;
-    
-    NSNumber *durationNumber = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curveNumber = notification.userInfo[UIKeyboardAnimationCurveUserInfoKey];
-    
-    NSTimeInterval duration = durationNumber.doubleValue;
-    UIViewAnimationCurve curve = curveNumber.unsignedIntegerValue;
-    UIViewAnimationOptions options = curve << 16;
-    
-    [UIView animateWithDuration:duration delay:0 options:options animations:^{
-        self.tableView.contentInset = contentInsets;
-        self.tableView.scrollIndicatorInsets = scrollIndicatorInsets;
-    } completion:nil];
 }
 
 # pragma mark EWEFullScreenDelegate

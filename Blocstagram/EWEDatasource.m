@@ -163,7 +163,7 @@ NSMutableArray *_mediaItems;
         
         if (mediaItem) {
             [tmpMediaItems addObject:mediaItem];
-           // [self downloadImageForMediaItem:mediaItem];
+            
         }
     }
     
@@ -233,6 +233,7 @@ NSMutableArray *_mediaItems;
             mediaItem.likeState = EWELikeStateLiked;
             [self reloadMediaItem:mediaItem];
             [self requestNewItemsWithCompletionHandler:nil];
+        
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             mediaItem.likeState = EWELikeStateNotLiked;
             

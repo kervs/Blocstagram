@@ -20,9 +20,13 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, weak) id<EWEMediaFullScreenDelegate> delegate;
+@property (nonatomic, strong) EWEMedia *media;
+
 
 - (instancetype) initWithMedia:(EWEMedia *)media;
 - (instancetype) initWithMedia:(EWEMedia *)media andDelegate:(id<EWEMediaFullScreenDelegate>) delegate;
 
 - (void) centerScrollView;
+
+- (void) recalculateZoomScale;
 @end
