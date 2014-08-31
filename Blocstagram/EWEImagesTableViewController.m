@@ -16,6 +16,7 @@
 #import "EWEMediaFullScreenAnimator.h"
 #import "EWECameraViewController.h"
 #import "EWEImageLibraryViewController.h"
+#import "EWEPostToInstagramViewController.h"
 
 
 @interface EWEImagesTableViewController () <EWEMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate, EWEMediaFullScreenDelegate, EWECameraViewControllerDelegate,EWEImageLibraryViewControllerDelegate>
@@ -186,22 +187,22 @@
     return;
 }
 - (void) imageLibraryViewController:(EWEImageLibraryViewController *)imageLibraryViewController didCompleteWithImage:(UIImage *)image {
-    [imageLibraryViewController dismissViewControllerAnimated:YES completion:^{
-        if (image) {
-            NSLog(@"Got an image!");
-        } else {
-            NSLog(@"Closed without an image.");
-        }
-    }];
+    [self handleImage:image withNavigationController:imageLibraryViewController.navigationController];
 }
 - (void) cameraViewController:(EWECameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image {
-    [cameraViewController dismissViewControllerAnimated:YES completion:^{
-        if (image) {
-            NSLog(@"Got an image!");
-        } else {
-            NSLog(@"Closed without an image.");
-        }
-    }];
+    
+     [self handleImage:image withNavigationController:cameraViewController.navigationController];
+}
+
+
+- (void) handleImage:(UIImage *)image withNavigationController:(UINavigationController *)nav {
+         if (image) {
+             EWEPostToInstagramViewController *postVC = [[EWEPostToInstagramViewController alloc] initWithImage:image];
+             
+             [nav pushViewController:postVC animated:YES];
+         } else {
+             [nav dismissViewControllerAnimated:YES completion:nil];
+         }
 }
 #pragma mark - UIScrollViewDelegate
 
@@ -256,6 +257,7 @@
         return 250;
     }
 }
+
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     EWEMediaTableViewCell *cell = (EWEMediaTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -390,35 +392,33 @@
     }
 
    self.lastKeyboardAdjustment = heightToScroll;
-    
-   
-   
-				
 	
 }
 
+
+
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-//    UIEdgeInsets contentInsets = self.tableView.contentInset;
-//    contentInsets.bottom -= self.lastKeyboardAdjustment;
-//    
-//    UIEdgeInsets scrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-//    scrollIndicatorInsets.bottom -= self.lastKeyboardAdjustment;
-//    
-//    self.lastKeyboardAdjustment = 0;
-//    
-//    NSNumber *durationNumber = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-//    NSNumber *curveNumber = notification.userInfo[UIKeyboardAnimationCurveUserInfoKey];
-//    
-//    NSTimeInterval duration = durationNumber.doubleValue;
-//    UIViewAnimationCurve curve = curveNumber.unsignedIntegerValue;
-//    UIViewAnimationOptions options = curve << 16;
-//    
-//    [UIView animateWithDuration:duration delay:0 options:options animations:^{
-//        self.tableView.contentInset = contentInsets;
-//        self.tableView.scrollIndicatorInsets = scrollIndicatorInsets;
-//    } completion:nil];
+    UIEdgeInsets contentInsets = self.tableView.contentInset;
+    contentInsets.bottom -= self.lastKeyboardAdjustment;
     
+    UIEdgeInsets scrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
+    scrollIndicatorInsets.bottom -= self.lastKeyboardAdjustment;
+    
+    self.lastKeyboardAdjustment = 0;
+    
+    NSNumber *durationNumber = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curveNumber = notification.userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    
+    NSTimeInterval duration = durationNumber.doubleValue;
+    UIViewAnimationCurve curve = curveNumber.unsignedIntegerValue;
+    UIViewAnimationOptions options = curve << 16;
+    
+    [UIView animateWithDuration:duration delay:0 options:options animations:^{
+        self.tableView.contentInset = contentInsets;
+        self.tableView.scrollIndicatorInsets = scrollIndicatorInsets;
+    } completion:nil];
+
 }
 
 # pragma mark EWEFullScreenDelegate

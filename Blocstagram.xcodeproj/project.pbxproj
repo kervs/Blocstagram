@@ -18,6 +18,7 @@
 		3B287D6519A27F1B00739DBE /* EWELoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D6419A27F1B00739DBE /* EWELoginViewController.m */; };
 		3B5C755019A6ADF400293557 /* EWEMediaFullScreenAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5C754F19A6ADF400293557 /* EWEMediaFullScreenAnimator.m */; };
 		3B5C755319A6B0D300293557 /* EWEMediaFullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5C755219A6B0D300293557 /* EWEMediaFullScreenViewController.m */; };
+		3B7577E619B25B1C00AB4515 /* EWEPostToInstagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7577E519B25B1C00AB4515 /* EWEPostToInstagramViewController.m */; };
 		3B7E2C1B199DEC8C008FB631 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7E2C1A199DEC8C008FB631 /* Foundation.framework */; };
 		3B7E2C1D199DEC8C008FB631 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7E2C1C199DEC8C008FB631 /* CoreGraphics.framework */; };
 		3B7E2C1F199DEC8C008FB631 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7E2C1E199DEC8C008FB631 /* UIKit.framework */; };
@@ -83,6 +84,8 @@
 		3B5C754F19A6ADF400293557 /* EWEMediaFullScreenAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEMediaFullScreenAnimator.m; sourceTree = "<group>"; };
 		3B5C755119A6B0D300293557 /* EWEMediaFullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEMediaFullScreenViewController.h; sourceTree = "<group>"; };
 		3B5C755219A6B0D300293557 /* EWEMediaFullScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEMediaFullScreenViewController.m; sourceTree = "<group>"; };
+		3B7577E419B25B1C00AB4515 /* EWEPostToInstagramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEPostToInstagramViewController.h; sourceTree = "<group>"; };
+		3B7577E519B25B1C00AB4515 /* EWEPostToInstagramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEPostToInstagramViewController.m; sourceTree = "<group>"; };
 		3B7E2C17199DEC8C008FB631 /* Blocstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blocstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7E2C1A199DEC8C008FB631 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3B7E2C1C199DEC8C008FB631 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -226,6 +229,8 @@
 				3BD7514519AE4D980003FE68 /* EWECropImageViewController.m */,
 				3BD7514719AE7C080003FE68 /* EWEImageLibraryViewController.h */,
 				3BD7514819AE7C080003FE68 /* EWEImageLibraryViewController.m */,
+				3B7577E419B25B1C00AB4515 /* EWEPostToInstagramViewController.h */,
+				3B7577E519B25B1C00AB4515 /* EWEPostToInstagramViewController.m */,
 				3B7E2C2C199DEC8C008FB631 /* Images.xcassets */,
 				3B7E2C21199DEC8C008FB631 /* Supporting Files */,
 			);
@@ -422,6 +427,7 @@
 				3B287D5619A11FEB00739DBE /* EWEUser.m in Sources */,
 				3B0A2C9219ABF8FF0013FC57 /* EWEComposeCommentView.m in Sources */,
 				3B7E2C60199E6889008FB631 /* EWEImagesTableViewController.m in Sources */,
+				3B7577E619B25B1C00AB4515 /* EWEPostToInstagramViewController.m in Sources */,
 				3BD4422419AD996B003893BB /* UIImage+EWEImageUtilities.m in Sources */,
 				3BD7514619AE4D980003FE68 /* EWECropImageViewController.m in Sources */,
 				3B0A2C8919AB92100013FC57 /* EWECircleSpinnerView.m in Sources */,

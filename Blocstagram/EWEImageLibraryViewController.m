@@ -9,7 +9,7 @@
 #import "EWEImageLibraryViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "EWECropImageViewController.h"
-
+ #import "EWEPostToInstagramViewController.h"
 
 @interface EWEImageLibraryViewController () <EWECropImageViewControllerDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -121,6 +121,16 @@
     return 0;
 }
 
+- (void) handleImage:(UIImage *)image withNavigationController:(UINavigationController *)nav {
+    if (image) {
+        EWEPostToInstagramViewController *postVC = [[EWEPostToInstagramViewController alloc] initWithImage:image];
+        
+        [nav pushViewController:postVC animated:YES];
+    } else {
+        [nav dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSInteger imageViewTag = 54321;
     
@@ -219,7 +229,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - BLCCropImageViewControllerDelegate
+#pragma mark - EWECropImageViewControllerDelegate
 
 - (void) cropControllerFinishedWithImage:(UIImage *)croppedImage {
     [self.delegate imageLibraryViewController:self didCompleteWithImage:croppedImage];
