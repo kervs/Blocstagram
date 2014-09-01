@@ -24,6 +24,9 @@
 @property (nonatomic, weak) UIView *lastSelectedCommentView;
 @property (nonatomic, assign) CGFloat lastKeyboardAdjustment;
 
+@property (nonatomic, strong) UIPopoverController *cameraPopover;
+@property (nonatomic, strong) UIPopoverController *sharePopover;
+
 
 
 @end
@@ -76,6 +79,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(imageDidFinish:)
+                                                 name:EWEImageFinishedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(cell:didLongPressImageView:)
+                                                 name:EWEImageFinishedNotification
                                                object:nil];
 }
 
@@ -182,7 +193,14 @@
     
     if (imageVC) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
-        [self presentViewController:nav animated:YES completion:nil];
+        
+        if (isPhone) {
+            [self presentViewController:nav animated:YES completion:nil];
+        } else {
+            self.cameraPopover = [[UIPopoverController alloc] initWithContentViewController:nav];
+            self.cameraPopover.popoverContentSize = CGSizeMake(320, 568);
+            [self.cameraPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
     }
     return;
 }
@@ -201,7 +219,12 @@
              
              [nav pushViewController:postVC animated:YES];
          } else {
-             [nav dismissViewControllerAnimated:YES completion:nil];
+             if (isPhone) {
+                 [nav dismissViewControllerAnimated:YES completion:nil];
+             } else {
+                 [self.cameraPopover dismissPopoverAnimated:YES];
+                 self.cameraPopover = nil;
+             }
          }
 }
 #pragma mark - UIScrollViewDelegate
@@ -299,8 +322,12 @@
 - (void) cell:(EWEMediaTableViewCell *)cell didTapImageView:(UIImageView *)imageView {
     self.lastTappedImageView = imageView;
     EWEMediaFullScreenViewController *fullScreenVC = [[EWEMediaFullScreenViewController alloc] initWithMedia:cell.mediaItem andDelegate:self];
-    fullScreenVC.transitioningDelegate = self;
-    fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
+    if (isPhone) {
+        fullScreenVC.transitioningDelegate = self;
+        fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
+    } else {
+        fullScreenVC.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
     
     [self presentViewController:fullScreenVC animated:YES completion:nil];
 }
@@ -434,12 +461,34 @@
         [itemsToShare addObject:item.image];
     }
     
-    if (itemsToShare.count > 0) {
-        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
-        [controller presentViewController:activityVC animated:YES completion:nil];
+    if (isPhone) {
+        
+    
+        if (itemsToShare.count > 0) {
+            UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+            [controller presentViewController:activityVC animated:YES completion:nil];
+        }
+    }else{
+        if (itemsToShare.count > 0) {
+            UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+            self.sharePopover = [[UIPopoverController alloc]initWithContentViewController:activityVC];
+            [self.sharePopover presentPopoverFromRect:self.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+            
+            
+        }
+        
     }
 }
+#pragma mark - Popover Handling
 
+- (void) imageDidFinish:(NSNotification *)notification {
+    if (isPhone) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.cameraPopover dismissPopoverAnimated:YES];
+        self.cameraPopover = nil;
+    }
+}
 /*
 
 // Override to support rearranging the table view.

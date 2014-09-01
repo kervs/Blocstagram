@@ -14,6 +14,8 @@ typedef void (^EWENewItemCompletionBlock)(NSError *error);
 @interface EWEDatasource : NSObject
 
 +(instancetype) sharedInstance;
+extern NSString *const EWEImageFinishedNotification;
+
 @property (nonatomic, strong, readonly) NSArray *mediaItems;
 
 - (void) deleteMediaItem:(EWEMedia *)item;

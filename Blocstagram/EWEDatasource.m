@@ -28,6 +28,8 @@ NSMutableArray *_mediaItems;
 
 @implementation EWEDatasource
 
+NSString *const EWEImageFinishedNotification = @"EWEImageFinishedNotification";
+
 + (instancetype) sharedInstance {
     static dispatch_once_t once;
     static id sharedInstance;
