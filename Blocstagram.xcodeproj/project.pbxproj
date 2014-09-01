@@ -16,6 +16,11 @@
 		3B287D5F19A1223100739DBE /* EWEDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D5E19A1223100739DBE /* EWEDatasource.m */; };
 		3B287D6219A1480100739DBE /* EWEMediaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D6119A1480100739DBE /* EWEMediaTableViewCell.m */; };
 		3B287D6519A27F1B00739DBE /* EWELoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B287D6419A27F1B00739DBE /* EWELoginViewController.m */; };
+		3B405F5C19B424F700A1D0CE /* EWEUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B405F5B19B424F700A1D0CE /* EWEUserTests.m */; };
+		3B405F5E19B4268400A1D0CE /* EWECommentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B405F5D19B4268400A1D0CE /* EWECommentTests.m */; };
+		3B405F6019B4E83200A1D0CE /* EWEMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B405F5F19B4E83200A1D0CE /* EWEMediaTest.m */; };
+		3B405F6219B4EBA000A1D0CE /* EWEComposeCommentViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B405F6119B4EBA000A1D0CE /* EWEComposeCommentViewTest.m */; };
+		3B405F6419B4FB6800A1D0CE /* EWEMediaTableViewCellTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B405F6319B4FB6800A1D0CE /* EWEMediaTableViewCellTest.m */; };
 		3B5C755019A6ADF400293557 /* EWEMediaFullScreenAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5C754F19A6ADF400293557 /* EWEMediaFullScreenAnimator.m */; };
 		3B5C755319A6B0D300293557 /* EWEMediaFullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5C755219A6B0D300293557 /* EWEMediaFullScreenViewController.m */; };
 		3B7577E619B25B1C00AB4515 /* EWEPostToInstagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7577E519B25B1C00AB4515 /* EWEPostToInstagramViewController.m */; };
@@ -80,6 +85,11 @@
 		3B287D6119A1480100739DBE /* EWEMediaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEMediaTableViewCell.m; sourceTree = "<group>"; };
 		3B287D6319A27F1B00739DBE /* EWELoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWELoginViewController.h; sourceTree = "<group>"; };
 		3B287D6419A27F1B00739DBE /* EWELoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWELoginViewController.m; sourceTree = "<group>"; };
+		3B405F5B19B424F700A1D0CE /* EWEUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEUserTests.m; sourceTree = "<group>"; };
+		3B405F5D19B4268400A1D0CE /* EWECommentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWECommentTests.m; sourceTree = "<group>"; };
+		3B405F5F19B4E83200A1D0CE /* EWEMediaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEMediaTest.m; sourceTree = "<group>"; };
+		3B405F6119B4EBA000A1D0CE /* EWEComposeCommentViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEComposeCommentViewTest.m; sourceTree = "<group>"; };
+		3B405F6319B4FB6800A1D0CE /* EWEMediaTableViewCellTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEMediaTableViewCellTest.m; sourceTree = "<group>"; };
 		3B5C754E19A6ADF400293557 /* EWEMediaFullScreenAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEMediaFullScreenAnimator.h; sourceTree = "<group>"; };
 		3B5C754F19A6ADF400293557 /* EWEMediaFullScreenAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEMediaFullScreenAnimator.m; sourceTree = "<group>"; };
 		3B5C755119A6B0D300293557 /* EWEMediaFullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEMediaFullScreenViewController.h; sourceTree = "<group>"; };
@@ -251,6 +261,11 @@
 		3B7E2C39199DEC8C008FB631 /* BlocstagramTests */ = {
 			isa = PBXGroup;
 			children = (
+				3B405F5F19B4E83200A1D0CE /* EWEMediaTest.m */,
+				3B405F5D19B4268400A1D0CE /* EWECommentTests.m */,
+				3B405F5B19B424F700A1D0CE /* EWEUserTests.m */,
+				3B405F6119B4EBA000A1D0CE /* EWEComposeCommentViewTest.m */,
+				3B405F6319B4FB6800A1D0CE /* EWEMediaTableViewCellTest.m */,
 				3B7E2C3F199DEC8C008FB631 /* BlocstagramTests.m */,
 				3B7E2C3A199DEC8C008FB631 /* Supporting Files */,
 			);
@@ -452,6 +467,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B405F6419B4FB6800A1D0CE /* EWEMediaTableViewCellTest.m in Sources */,
+				3B405F5C19B424F700A1D0CE /* EWEUserTests.m in Sources */,
+				3B405F5E19B4268400A1D0CE /* EWECommentTests.m in Sources */,
+				3B405F6019B4E83200A1D0CE /* EWEMediaTest.m in Sources */,
+				3B405F6219B4EBA000A1D0CE /* EWEComposeCommentViewTest.m in Sources */,
 				3B7E2C40199DEC8C008FB631 /* BlocstagramTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
