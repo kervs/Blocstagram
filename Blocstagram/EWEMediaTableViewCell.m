@@ -255,6 +255,7 @@ self.commentLabelHeightConstraint = [NSLayoutConstraint constraintWithItem:_comm
 
     // The height will be wherever the bottom of the comments label is
     return CGRectGetMaxY(layoutCell.commentView.frame);
+    NSLog(@"the layout %f",CGRectGetMaxY(layoutCell.commentView.frame));
 }
 - (void) setMediaItem:(EWEMedia *)mediaItem {
     _mediaItem = mediaItem;

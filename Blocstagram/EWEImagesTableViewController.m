@@ -314,7 +314,7 @@
 }
 
 - (void) cell:(EWEMediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView {
-    [self shareMediaItem:cell.mediaItem fromController:self];
+    [self shareMediaItem:cell.mediaItem fromController:self andVeiwTarget:imageView];
 }
 
 #pragma mark - EWEMediaTableViewCellDelegate
@@ -381,27 +381,28 @@
     
     CGFloat keyboardY = CGRectGetMinY(keyboardFrameInViewCoordinates);
     CGFloat commentViewY = CGRectGetMinY(commentViewFrameInViewCoordinates);
-    CGFloat difference = commentViewY - keyboardY;
-    if (self.lastKeyboardAdjustment != 0) {
-        contentInsets.bottom -= self.lastKeyboardAdjustment;
-        scrollIndicatorInsets.bottom -=  self.lastKeyboardAdjustment;
-        contentOffset.y -=  self.lastKeyboardAdjustment;
-
-    }
+    
+    CGFloat commentViewHeight = CGRectGetHeight(commentViewFrameInViewCoordinates);
+    CGFloat commentViewFinalY = keyboardY - commentViewHeight;
    
-    if (difference > 0) {
-        heightToScroll += difference;
+    if (commentViewY != commentViewFinalY) {
+        NSLog(@"Y difference %f", commentViewY - commentViewFinalY);
+        heightToScroll += commentViewY - commentViewFinalY;
     }
+    
+    NSLog(@"Keyboard Frame %@", NSStringFromCGRect(keyboardFrameInViewCoordinates));
+    NSLog(@"Comment Frame %@", NSStringFromCGRect(commentViewFrameInViewCoordinates));
 
-    if (CGRectIntersectsRect(keyboardFrameInViewCoordinates, commentViewFrameInViewCoordinates)) {
-        // The two frames intersect (the keyboard would block the view)
-        CGRect intersectionRect = CGRectIntersection(keyboardFrameInViewCoordinates, commentViewFrameInViewCoordinates);
-        heightToScroll += CGRectGetHeight(intersectionRect);
-    }
 
-    if (heightToScroll > 0) {
-        contentInsets.bottom += heightToScroll;
-        scrollIndicatorInsets.bottom += heightToScroll;
+    if (heightToScroll != 0) {
+        NSLog(@"Height To Scroll: %f", heightToScroll);
+        if (heightToScroll < 0) {
+            contentInsets.top -= heightToScroll;
+            scrollIndicatorInsets.top -= heightToScroll;
+        } else{
+            contentInsets.bottom += heightToScroll;
+            scrollIndicatorInsets.bottom += heightToScroll;
+        }
         contentOffset.y += heightToScroll;
 
         NSNumber *durationNumber = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
@@ -427,10 +428,16 @@
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     UIEdgeInsets contentInsets = self.tableView.contentInset;
-    contentInsets.bottom -= self.lastKeyboardAdjustment;
     
     UIEdgeInsets scrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-    scrollIndicatorInsets.bottom -= self.lastKeyboardAdjustment;
+    
+    if (self.lastKeyboardAdjustment < 0) {
+        contentInsets.top += self.lastKeyboardAdjustment;
+        scrollIndicatorInsets.top += self.lastKeyboardAdjustment;
+    } else {
+        contentInsets.bottom -= self.lastKeyboardAdjustment;
+        scrollIndicatorInsets.bottom -= self.lastKeyboardAdjustment;
+    }
     
     self.lastKeyboardAdjustment = 0;
     
@@ -451,6 +458,10 @@
 # pragma mark EWEFullScreenDelegate
 
 - (void)shareMediaItem:(EWEMedia *)item fromController:(UIViewController *)controller {
+    [self shareMediaItem:item fromController:controller andVeiwTarget:self.view];
+}
+
+-(void) shareMediaItem:(EWEMedia *)item fromController:(UIViewController *)controller andVeiwTarget: (UIView *)target{
     NSMutableArray *itemsToShare = [NSMutableArray array];
     
     if (item.caption.length > 0) {
@@ -463,22 +474,22 @@
     
     if (isPhone) {
         
-    
+        
         if (itemsToShare.count > 0) {
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
             [controller presentViewController:activityVC animated:YES completion:nil];
         }
-    }else{
+    }else {
         if (itemsToShare.count > 0) {
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
             self.sharePopover = [[UIPopoverController alloc]initWithContentViewController:activityVC];
-            [self.sharePopover presentPopoverFromRect:self.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-            
-            
+            [self.sharePopover presentPopoverFromRect:target.frame inView:controller.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
         
     }
+
 }
+
 #pragma mark - Popover Handling
 
 - (void) imageDidFinish:(NSNotification *)notification {

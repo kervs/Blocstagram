@@ -27,12 +27,17 @@
     [super tearDown];
 }
 
-- (void)testThatInitializationWorks
+- (void)testThatCommnetWorks
 {
     
     EWEComposeCommentView *composeComment = [[EWEComposeCommentView alloc]init];
-    XCTAssertTrue(composeComment.isWritingComment == YES, @"The bool should be equal");
-    XCTAssertTrue(composeComment.isWritingComment == NO, @"The bool should be equal");
+    composeComment.text = @"something is writing here";
+    XCTAssertTrue(composeComment.isWritingComment == YES, @"The is an error in comment section");
 }
 
+-(void)testThatComment
+{    EWEComposeCommentView *composeComment = [[EWEComposeCommentView alloc]init];
+     composeComment.text = nil;
+     XCTAssertTrue(composeComment.isWritingComment == NO, @"The is an error in comment section");
+}
 @end
